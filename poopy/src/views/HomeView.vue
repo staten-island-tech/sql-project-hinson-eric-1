@@ -1,4 +1,14 @@
-<script setup></script>
+<script setup>
+import { ref, onMounted } from "vue";
+import { supabase } from "../lib/supabaseClient";
+
+const books = ref([]);
+async function getBooks() {
+  const { data } = await supabase.from("noble and barnes").select();
+  books.value = data;
+  console.log(books);
+}
+</script>
 
 <template>
   <div>
@@ -8,7 +18,7 @@
     <h2>password</h2>
     <input type="text" />
 
-    <button>login yay</button>
+    <button @click="getBooks()">login yay</button>
   </div>
 </template>
 
