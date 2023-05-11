@@ -1,10 +1,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
+import { RouterLink, RouterView } from "vue-router";
 
 const books = ref([]);
 async function getBooks() {
-  const { data } = await supabase.from("noble and barnes").select();
+  const { data } = await supabase.from("books").select();
   books.value = data;
   console.log(books);
 }
@@ -19,6 +20,9 @@ async function getBooks() {
     <input type="text" />
 
     <button @click="getBooks()">login yay</button>
+    <nav>
+      <RouterLink to="/create">Create Account</RouterLink>
+    </nav>
   </div>
 </template>
 
