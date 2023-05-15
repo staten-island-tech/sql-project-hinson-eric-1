@@ -7,8 +7,8 @@ const books = ref([]);
 async function getBooks() {
   const { data } = await supabase.from("books").select();
   books.value = data;
-  console.log(books);
 }
+getBooks();
 </script>
 
 <template>
@@ -19,7 +19,7 @@ async function getBooks() {
     <h2>password</h2>
     <input type="text" />
 
-    <button @click="getBooks()">login yay</button>
+    <button>login yay</button>
     <nav>
       <RouterLink to="/create">Create Account</RouterLink>
     </nav>
