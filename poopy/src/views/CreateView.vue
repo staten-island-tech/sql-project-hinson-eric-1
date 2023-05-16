@@ -1,24 +1,46 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
-let username = ref("");
-let password = ref("");
-let confirm_pword = ref("");
+
+let users = ref([]);
+
+async function getUsers() {
+  const { data } = await supabase.from("users").select();
+  console.log(data);
+  users = data;
+  console.log(users);
+}
+
 function userInsert(username, password, confirm_pword) {
-  if ((password.value = confirm_pword.value)) {
+  let user = ref(document.getElementById("username").value);
+  let pass = ref(document.getElementById("password").value);
+  let confirm = ref(document.getElementById("confirm_pword").value);
+  if (pass.value == confirm.value) {
+    for (let i = 0; i < users.length; i++) {
+      if (user == users.username[i]) {
+        console.log("user taken");
+      } else {
+        console.log("success");
+      }
+    }
+  } else {
+    console.log("password fail");
   }
 }
+
+getUsers();
+console.log(users.value);
 </script>
 <template>
   <div>
     <h1>create an account!!!!</h1>
     <h2>username</h2>
-    <input type="text" v-model="username.value" />
+    <input type="text" id="username" />
     <h2>password</h2>
-    <input type="text" v-model="password.value" />
+    <input type="text" id="password" />
     <h2>confirm password</h2>
-    <input type="text" v-model="confirm_pword.value" />
-    <button>create!!!!</button>
+    <input type="text" id="confirm_pword" />
+    <button @click="userInsert">make</button>
   </div>
 </template>
 
