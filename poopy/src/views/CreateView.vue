@@ -2,34 +2,28 @@
 import { ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
 
-let users = ref([]);
+let users = [];
 
 async function getUsers() {
   const { data } = await supabase.from("users").select();
-  console.log(data);
-  users = data;
-  console.log(users);
+  users.value = data;
 }
 
-function userInsert(username, password, confirm_pword) {
+function userInsert() {
+  getUsers();
   let user = ref(document.getElementById("username").value);
   let pass = ref(document.getElementById("password").value);
   let confirm = ref(document.getElementById("confirm_pword").value);
+
   if (pass.value == confirm.value) {
-    for (let i = 0; i < users.length; i++) {
-      if (user == users.username[i]) {
-        console.log("user taken");
-      } else {
-        console.log("success");
-      }
+    console.log(users.value[0].username);
+    for (i = 0; i < users.value.length; ) {
+      console.log(users.value[i].username);
     }
-  } else {
-    console.log("password fail");
+    console.log("omg");
   }
 }
-
 getUsers();
-console.log(users.value);
 </script>
 <template>
   <div>
