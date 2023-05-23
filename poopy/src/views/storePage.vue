@@ -18,7 +18,7 @@ getBooks();
     <div class="wrapper">
       <div v-for="book in books" id="susdiv1">
         <book>
-          <template #title>{{ book.name }}</template>
+          <template #title>{{ book.name }} by {{ book.author }}</template>
           <template #img> <img v-bind:src="book.image" /></template>
           <template #price>{{ book.price }} dollars</template>
         </book>
