@@ -6,7 +6,13 @@ export const useCounterStore = defineStore('c-user', () => {
   let carttotal = ref(0)
 
   function add(x) {
-    cartotal = cartotal + x
+    cartotal = ref(cartotal.value + x)
   }
-  return {cart, carttotal}
+  function ccart(x) {
+    cart = ref(x)
+  }
+  function ctotal(x) {
+    cartotal = ref(x)
+  }
+  return {cart, carttotal, add, ccart, ctotal}
 })
