@@ -29,7 +29,7 @@ async function userInsert() {
       success = !success;
       const { error } = await supabase
         .from("users")
-        .insert({ username: `${user.value}`, password: `${pass.value}` });
+        .insert({ username: `${user}`, password: `${pass}`, carttotal: 0, incart: [], owned: []  });
 
     }
   }

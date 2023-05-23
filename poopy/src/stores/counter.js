@@ -5,5 +5,8 @@ export const useCounterStore = defineStore('c-user', () => {
   let cart = ref([])
   let carttotal = ref(0)
 
+  function add(x) {
+    cartotal = cartotal + x
+  }
   return {cart, carttotal}
 })
