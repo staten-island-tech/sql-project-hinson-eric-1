@@ -6,10 +6,7 @@
     <slot name="img"></slot>
 
     <h4><slot name="price"></slot></h4>
-    <slot name="button">
-      <button>buy this book</button>
-      <button>remove from cart</button>
-    </slot>
+    <slot name="button"> </slot>
   </div>
 </template>
 

@@ -2,10 +2,12 @@
 import { ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
 import { RouterLink, RouterView } from "vue-router";
+import { useCounterStore } from "../stores/counter";
 
 let users = [];
 const books = ref([]);
 let warn = ref(0);
+const store = useCounterStore();
 
 async function getBooks() {
   const { data } = await supabase.from("books").select();
@@ -19,35 +21,37 @@ async function getUsers() {
 }
 
 async function login() {
-  let temp = ref(-2)
-  let found = true
+  let temp = ref(-2);
+  let found = true;
   let user = ref(document.getElementById("user").value);
   let pass = ref(document.getElementById("pass").value);
   for (let i = 0; i < users.value.length; i++ && found == true) {
     if (users.value[i].username == user.value) {
       temp.value = i;
       found = false;
-    }}
+    }
+  }
   if (temp.value > -1) {
     if (users.value[temp.value].password == pass.value && pass != "") {
-      console.log("success")
+      store.userarri = temp.value;
+      store.carttotal = users.value[store.userarri].carttotal;
     } else {
-      warn.value = 1
+      warn.value = 1;
     }
   } else {
-    warn.value = 2
+    warn.value = 2;
   }
 }
-getUsers()
+getUsers();
 </script>
 
 <template>
   <div>
     <h1>login to our very cool bookstore</h1>
     <h2>username</h2>
-    <input type="text" id="user"/>
+    <input type="text" id="user" />
     <h2>password</h2>
-    <input type="text" id="pass"/>
+    <input type="text" id="pass" />
 
     <button @click="login">login yay</button>
     <nav>
