@@ -3,8 +3,7 @@ import { ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
 
 let users = [];
-let success = ref(true);
-let failure = ref(true);
+let warn = ref(0);
 
 async function getUsers() {
   const { data } = await supabase.from("users").select();
@@ -16,24 +15,26 @@ async function userInsert() {
   let user = (document.getElementById("username").value);
   let pass = (document.getElementById("password").value);
   let confirm = (document.getElementById("confirm_pword").value);
+  let make = true;
 
-  if (pass.value == confirm.value) {
-    let make = true;
+  if (pass == confirm) {
     for (let i = 0; i < users.value.length; i++) {
-      if (users.value[i].username == user.value) {
-        make = false;
-        failure = !failure;
-      }
-    }
-    if (make) {
-      success = !success;
-      const { error } = await supabase
+      if (users.value[i].username == user) {
+        console.log("same")
+        warn.value = 1
+        make = false
+      }}
+      if (make) {
+        const { error } = await supabase
         .from("users")
         .insert({ username: `${user}`, password: `${pass}`, carttotal: 0, incart: [], owned: []  });
-
+      warn.value = 2
+      }
+    } else {
+      warn.value = 3
     }
   }
-}
+
 getUsers();
 </script>
 <template>
@@ -46,10 +47,11 @@ getUsers();
     <h2>confirm password</h2>
     <input type="text" id="confirm_pword" />
     <button @click="userInsert">make</button>
-    <p v-if="success"></p>
-    <p v-else>account made succesfully!!</p>
-    <p v-if="failure"></p>
-    <p v-else>username taken already D:</p>
+    <p v-if="warn == 0"></p>
+    <p v-else-if="warn == 1">username taken already</p>
+    <p v-else-if="warn == 2">account made succesfully!</p>
+    <p v-else-if="warn ==3">passwords aren't the same</p>
+    <p v-else></p>
   </div>
 </template>
 
