@@ -20,10 +20,13 @@ async function getUsers() {
 }
 async function updateUsers(price) {
   getUsers();
-  const { data } = await supabase
-    .from(users)
-    .update({ username: users.value[store.userarri].username })
-    .eq("id", 1);
+  console.log(users.value[store.userarri].id);
+  let temp = users.value[store.userarri].carttotal + price;
+  let { data, error } = await supabase
+    .from("users")
+    .update({ carttotal: parseInt(temp) })
+    .eq("id", users.value[store.userarri].id)
+    .select();
 }
 
 getBooks();
@@ -42,7 +45,8 @@ getBooks();
             <button
               @click="
                 (store.carttotal = book.price + store.carttotal),
-                  (total = store.carttotal)
+                  (total = store.carttotal),
+                  updateUsers(book.price)
               "
             >
               buy this item
