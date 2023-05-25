@@ -9,7 +9,6 @@ let users = [];
 const books = ref([]);
 const store = useCounterStore();
 let total = ref(store.carttotal);
-console.log(store.carttotal);
 async function getBooks() {
   const { data } = await supabase.from("books").select();
   books.value = data;
@@ -18,17 +17,37 @@ async function getUsers() {
   const { data } = await supabase.from("users").select();
   users.value = data;
 }
-async function updateUsers(price) {
-  getUsers();
-  console.log(users.value[store.userarri].id);
-  let temp = users.value[store.userarri].carttotal + price;
-  let { data, error } = await supabase
-    .from("users")
-    .update({ carttotal: parseInt(temp) })
-    .eq("id", users.value[store.userarri].id)
-    .select();
+
+
+async function clearUserCart() {
+  const {error} = await supabase
+  .from('users')
+  .update({incart: []})
+  .eq('id', store.currentid)
+  updatePrices()
 }
 
+async function updateUsers(name, price, pic) {
+  getUsers();
+  store.cart.splice(0,0,{name: name, price: price, pic: pic})
+  const {error} = await supabase
+  .from('users')
+  .update({incart: store.cart})
+  .eq('id', store.currentid)
+  let sum = 0;
+  console.log(store.cart)
+  store.cart.forEach(element => 
+  sum = element.price + sum
+  )
+  store.carttotal = sum
+  total.value = store.carttotal
+  const {error2} = await supabase
+  .from('users')
+  .update({carttotal: store.carttotal})
+  .eq('id', store.currentid)
+}
+
+getUsers();
 getBooks();
 </script>
 
@@ -44,9 +63,7 @@ getBooks();
           <template #button>
             <button
               @click="
-                (store.carttotal = book.price + store.carttotal),
-                  (total = store.carttotal),
-                  updateUsers(book.price)
+                  updateUsers(book.name, book.price, book.image)
               "
             >
               buy this item

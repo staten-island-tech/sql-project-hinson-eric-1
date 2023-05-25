@@ -29,12 +29,24 @@ async function login() {
     if (users.value[i].username == user.value) {
       temp.value = i;
       found = false;
+      
     }
   }
   if (temp.value > -1) {
     if (users.value[temp.value].password == pass.value && pass != "") {
       store.userarri = temp.value;
       store.carttotal = users.value[store.userarri].carttotal;
+      store.currentid = users.value[store.userarri].id;
+      let tem = []
+      if(users.value[store.userarri].incart.length > 0)
+      for (let i = 0; i < users.value[store.userarri].incart.length; i++) {
+        users.value[store.userarri].incart[i].replace('/','')
+       tem.push(JSON.parse(users.value[store.userarri].incart[i])) 
+      } else {
+
+      }
+      store.cart = tem
+      console.log(store.cart)
     } else {
       warn.value = 1;
     }
