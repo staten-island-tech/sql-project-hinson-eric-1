@@ -37,6 +37,7 @@ async function login() {
       store.userarri = temp.value;
       store.carttotal = users.value[store.userarri].carttotal;
       store.currentid = users.value[store.userarri].id;
+      store.cart = []
       let tem = []
       if(users.value[store.userarri].incart.length > 0)
       for (let i = 0; i < users.value[store.userarri].incart.length; i++) {
@@ -47,6 +48,7 @@ async function login() {
       }
       store.cart = tem
       console.log(store.cart)
+      warn.value = 3;
     } else {
       warn.value = 1;
     }
@@ -66,13 +68,16 @@ getUsers();
     <input type="text" id="pass" />
 
     <button @click="login">login yay</button>
-    <nav>
+    <nav v-if="warn == 0">
       <RouterLink to="/create">Create Account</RouterLink>
     </nav>
-    <p v-if="warn == 0"></p>
     <p v-else-if="warn == 1">wrong password loser</p>
     <p v-else-if="warn == 2">username not found, make account</p>
+    <nav v-else-if="warn == 3">
+      <RouterLink to="/store">Signed in Successfully! Click here to go to store.</RouterLink>
+    </nav>
     <p v-else></p>
+
   </div>
 </template>
 
