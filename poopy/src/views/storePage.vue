@@ -4,6 +4,7 @@ import { supabase } from "../lib/supabaseClient";
 import { RouterLink, RouterView } from "vue-router";
 import book from "../components/book.vue";
 import { useCounterStore } from "../stores/counter";
+import userCart from "../components/userCart.vue";
 
 let users = [];
 const books = ref([]);
@@ -18,33 +19,30 @@ async function getUsers() {
   users.value = data;
 }
 
-
 async function clearUserCart() {
-  const {error} = await supabase
-  .from('users')
-  .update({incart: []})
-  .eq('id', store.currentid)
-  updatePrices()
+  const { error } = await supabase
+    .from("users")
+    .update({ incart: [] })
+    .eq("id", store.currentid);
+  updatePrices();
 }
 
 async function updateUsers(name, price, pic) {
   getUsers();
-  store.cart.splice(0,0,{name: name, price: price, pic: pic})
-  const {error} = await supabase
-  .from('users')
-  .update({incart: store.cart})
-  .eq('id', store.currentid)
+  store.cart.splice(0, 0, { name: name, price: price, pic: pic });
+  const { error } = await supabase
+    .from("users")
+    .update({ incart: store.cart })
+    .eq("id", store.currentid);
   let sum = 0;
-  console.log(store.cart)
-  store.cart.forEach(element => 
-  sum = element.price + sum
-  )
-  store.carttotal = sum
-  total.value = store.carttotal
-  const {error2} = await supabase
-  .from('users')
-  .update({carttotal: store.carttotal})
-  .eq('id', store.currentid)
+  console.log(store.cart);
+  store.cart.forEach((element) => (sum = element.price + sum));
+  store.carttotal = sum;
+  total.value = store.carttotal;
+  const { error2 } = await supabase
+    .from("users")
+    .update({ carttotal: store.carttotal })
+    .eq("id", store.currentid);
 }
 
 getUsers();
@@ -54,6 +52,8 @@ getBooks();
 <template>
   <div>
     <h3>total cart value: {{ total }}</h3>
+    <button>show cart</button>
+    <userCart></userCart>
     <div class="wrapper">
       <div v-for="book in books" id="susdiv1">
         <book>
@@ -61,14 +61,9 @@ getBooks();
           <template #img> <img v-bind:src="book.image" /></template>
           <template #price>{{ book.price }} dollars</template>
           <template #button>
-            <button
-              @click="
-                  updateUsers(book.name, book.price, book.image)
-              "
-            >
+            <button @click="updateUsers(book.name, book.price, book.image)">
               buy this item
             </button>
-            <button>remove from cart</button>
           </template>
         </book>
       </div>
