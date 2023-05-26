@@ -29,7 +29,6 @@ async function login() {
     if (users.value[i].username == user.value) {
       temp.value = i;
       found = false;
-      
     }
   }
   if (temp.value > -1) {
@@ -37,17 +36,16 @@ async function login() {
       store.userarri = temp.value;
       store.carttotal = users.value[store.userarri].carttotal;
       store.currentid = users.value[store.userarri].id;
-      store.cart = []
-      let tem = []
-      if(users.value[store.userarri].incart.length > 0)
-      for (let i = 0; i < users.value[store.userarri].incart.length; i++) {
-        users.value[store.userarri].incart[i].replace('/','')
-       tem.push(JSON.parse(users.value[store.userarri].incart[i])) 
-      } else {
-
+      store.cart = [];
+      let tem = [];
+      if (users.value[store.userarri].incart.length > 0)
+        for (let i = 0; i < users.value[store.userarri].incart.length; i++) {
+          users.value[store.userarri].incart[i].replace("/", "");
+          tem.push(JSON.parse(users.value[store.userarri].incart[i]));
+        }
+      else {
       }
-      store.cart = tem
-      console.log(store.cart)
+      store.cart = tem;
       warn.value = 3;
     } else {
       warn.value = 1;
@@ -74,10 +72,11 @@ getUsers();
     <p v-else-if="warn == 1">wrong password loser</p>
     <p v-else-if="warn == 2">username not found, make account</p>
     <nav v-else-if="warn == 3">
-      <RouterLink to="/store">Signed in Successfully! Click here to go to store.</RouterLink>
+      <RouterLink to="/store"
+        >Signed in Successfully! Click here to go to store.</RouterLink
+      >
     </nav>
     <p v-else></p>
-
   </div>
 </template>
 

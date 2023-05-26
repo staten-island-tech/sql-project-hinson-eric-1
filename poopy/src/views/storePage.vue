@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { nextTick, ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
 import { RouterLink, RouterView } from "vue-router";
 import book from "../components/book.vue";
@@ -10,6 +10,7 @@ let users = [];
 const books = ref([]);
 const store = useCounterStore();
 let total = ref(store.carttotal);
+let showcart = ref(true);
 async function getBooks() {
   const { data } = await supabase.from("books").select();
   books.value = data;
@@ -17,6 +18,12 @@ async function getBooks() {
 async function getUsers() {
   const { data } = await supabase.from("users").select();
   users.value = data;
+}
+
+async function update() {
+  store.update2 = !store.update2;
+  await nextTick();
+  store.update2 = !store.update2;
 }
 
 async function clearUserCart() {
@@ -29,6 +36,7 @@ async function clearUserCart() {
 
 async function updateUsers(name, price, pic) {
   getUsers();
+  update();
   store.cart.splice(0, 0, { name: name, price: price, pic: pic });
   const { error } = await supabase
     .from("users")
@@ -51,9 +59,12 @@ getBooks();
 
 <template>
   <div>
-    <h3>total cart value: {{ total }}</h3>
-    <button>show cart</button>
-    <userCart></userCart>
+    <h3 v-if="store.update">total cart value: {{ store.carttotal }}</h3>
+    <button v-if="showcart" @click="showcart = !showcart">show cart</button>
+    <div v-else>
+      <button @click="showcart = !showcart">close cart</button>
+      <userCart></userCart>
+    </div>
     <div class="wrapper">
       <div v-for="book in books" id="susdiv1">
         <book>
