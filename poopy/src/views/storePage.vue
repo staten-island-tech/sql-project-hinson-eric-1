@@ -43,7 +43,6 @@ async function updateUsers(name, price, pic) {
     .update({ incart: store.cart })
     .eq("id", store.currentid);
   let sum = 0;
-  console.log(store.cart);
   store.cart.forEach((element) => (sum = element.price + sum));
   store.carttotal = sum;
   total.value = store.carttotal;

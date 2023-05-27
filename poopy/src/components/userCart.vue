@@ -4,7 +4,6 @@ import { supabase } from "../lib/supabaseClient";
 import { RouterLink, RouterView } from "vue-router";
 import { useCounterStore } from "../stores/counter";
 
-let users = [];
 let carttotal = ref(0);
 let books = ref([]);
 let store = useCounterStore();
@@ -21,9 +20,9 @@ async function update() {
 }
 
 async function removeItem(x) {
-  console.log(store.cart);
   let temp = store.cart.indexOf(x);
   store.cart.splice(temp, 1);
+  carttotal.value = store.carttotal
   carttotal.value = carttotal.value - x.price;
   store.carttotal = carttotal.value;
   updateCart();
@@ -41,7 +40,7 @@ async function removeItem(x) {
 updateCart();
 </script>
 <template>
-  <h1>Cart Total: {{ carttotal }}</h1>
+  <h1 v-if="store.update2">Cart Total: {{ store.carttotal }}</h1>
   <div v-for="book in books">
     <h2>{{ book.name }} -> ${{ book.price }}</h2>
     <img v-bind:src="book.pic" class="images" />
