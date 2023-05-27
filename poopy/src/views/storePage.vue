@@ -57,46 +57,33 @@ getBooks();
 </script>
 
 <template>
-  <div>
     <h3 v-if="store.update">total cart value: {{ store.carttotal }}</h3>
     <button v-if="showcart" @click="showcart = !showcart">show cart</button>
-    <div v-else>
-      <button @click="showcart = !showcart">close cart</button>
+      <button v-else @click="showcart = !showcart">close cart</button>
       <userCart></userCart>
-    </div>
-    <div class="wrapper">
-      <div v-for="book in books" id="susdiv1">
-        <book>
-          <template #title>{{ book.name }} by {{ book.author }}</template>
-          <template #img> <img v-bind:src="book.image" /></template>
-          <template #price>{{ book.price }} dollars</template>
-          <template #button>
-            <button @click="updateUsers(book.name, book.price, book.image)">
-              buy this item
-            </button>
-          </template>
-        </book>
-      </div>
-    </div>
+<div class="wrap">
+  <div v-for="book in books" id="susdiv1">
+    <book>
+      <template #title>{{ book.name }} by {{ book.author }}</template>
+      <template #img> <img v-bind:src="book.image" /></template>
+      <template #price>{{ book.price }} dollars</template>
+      <template #button>
+        <button @click="updateUsers(book.name, book.price, book.image)">
+          buy this item
+        </button>
+      </template>
+    </book>
   </div>
+</div>
+
 </template>
 
 <style scoped>
-.wrapper {
+.wrap {
   display: flex;
-  justify-content: center;
-  align-content: horizontal;
   flex-wrap: wrap;
-  margin: 20px;
-  width: 200px;
-}
-
-div {
-  display: flex;
-  justify-content: center;
-  align-content: horizontal;
-  flex-wrap: wrap;
-  margin: 20px;
+  margin: 30px;
+  justify-content: space-around;
 }
 
 img {

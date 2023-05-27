@@ -43,8 +43,6 @@ async function login() {
           users.value[store.userarri].incart[i].replace("/", "");
           tem.push(JSON.parse(users.value[store.userarri].incart[i]));
         }
-      else {
-      }
       store.cart = tem;
       warn.value = 3;
     } else {
@@ -58,7 +56,7 @@ getUsers();
 </script>
 
 <template>
-  <div>
+  <div id = "yes">
     <h1>login to our very cool bookstore</h1>
     <h2>username</h2>
     <input type="text" id="user" />
@@ -70,7 +68,9 @@ getUsers();
       <RouterLink to="/create">Create Account</RouterLink>
     </nav>
     <p v-else-if="warn == 1">wrong password loser</p>
-    <p v-else-if="warn == 2">username not found, make account</p>
+    <nav v-else-if="warn == 2">
+      <RouterLink to="/create">username not found, make account</RouterLink>
+    </nav>
     <nav v-else-if="warn == 3">
       <RouterLink to="/store"
         >Signed in Successfully! Click here to go to store.</RouterLink
@@ -88,5 +88,11 @@ h1 {
 
 input {
   margin-bottom: 10px;
+}
+
+#yes {
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 }
 </style>

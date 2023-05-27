@@ -5,24 +5,28 @@ import HelloWorld from "./components/HelloWorld.vue";
 
 <template>
   <header>
+<div class='yes'>
+  <div>
     <img
-      alt="Vue logo"
-      class="logo"
-      src="https://cdn1.vectorstock.com/i/1000x1000/11/25/n-and-b-vintage-initials-logo-symbol-letters-vector-27701125.jpg"
-      width="300"
-      height="300"
-    />
+    alt="Vue logo"
+    class="logo"
+    src="https://logos-download.com/wp-content/uploads/2021/01/Barnes__Noble_Logo-1536x1430.png"
+    width="350"
+    height="300"
+  />
+  </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="Noble and Barnes" />
 
-      <nav>
-        <RouterLink to="/">Login</RouterLink>
-      </nav>
-    </div>
+
+  <HelloWorld msg="Boble and Narnse" />
+
+
+</div>
+
+    <RouterView />
   </header>
 
-  <RouterView />
+
 </template>
 
 <style scoped>
@@ -32,8 +36,7 @@ header {
 }
 
 .logo {
-  display: block;
-  margin: 0 auto 2rem;
+  
 }
 
 nav {
@@ -43,48 +46,19 @@ nav {
   margin-top: 2rem;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+
+
+@media (min-width: 1200px) {
+
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.yes {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin: 50px;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 }
 </style>

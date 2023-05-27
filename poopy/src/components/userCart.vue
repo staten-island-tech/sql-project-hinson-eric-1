@@ -41,19 +41,27 @@ updateCart();
 </script>
 <template>
   <h1 v-if="store.update2">Cart Total: {{ store.carttotal }}</h1>
-  <div v-for="book in books">
-    <h2>{{ book.name }} -> ${{ book.price }}</h2>
-    <img v-bind:src="book.pic" class="images" />
-    <button @click="removeItem(book)">remove from cart</button>
-  </div>
+  <div class = "wrap">
+    <div v-for="book in books">
+      <h2>{{ book.name }} -> ${{ book.price }}</h2>
+      <img v-bind:src="book.pic" class="images" />
+      <button @click="removeItem(book)">remove from cart</button>
+    </div> </div>
+
 </template>
-<style>
-img {
-  width: 200px;
-  length: 200px;
+<style scoped>
+h1 {
+  text-align: center;
 }
 .images {
   width: 100px;
   length: 140px;
+}
+
+.wrap {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+
 }
 </style>

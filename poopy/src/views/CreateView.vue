@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
+import { RouterLink, RouterView } from "vue-router";
 
 let users = [];
 let warn = ref(0);
@@ -38,7 +39,7 @@ async function userInsert() {
 getUsers();
 </script>
 <template>
-  <div>
+  <div id = "yes">
     <h1>create an account!!!!</h1>
     <h2>username</h2>
     <input type="text" id="username" />
@@ -47,9 +48,13 @@ getUsers();
     <h2>confirm password</h2>
     <input type="text" id="confirm_pword" />
     <button @click="userInsert">make</button>
-    <p v-if="warn == 0"></p>
+    <nav v-if="warn == 0">
+      <RouterLink to="/">back to login</RouterLink>
+    </nav>
     <p v-else-if="warn == 1">username taken already</p>
-    <p v-else-if="warn == 2">account made succesfully!</p>
+    <nav v-else-if="warn == 2">
+      <RouterLink to="/">account made succesfully, click to login</RouterLink>
+    </nav>
     <p v-else-if="warn ==3">passwords aren't the same</p>
     <p v-else></p>
   </div>
@@ -61,6 +66,11 @@ h1 {
   font-size: 40px;
 }
 
+#yes {
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
 input {
   margin-bottom: 10px;
 }

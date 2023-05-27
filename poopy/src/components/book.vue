@@ -10,10 +10,12 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 div {
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  flex-wrap: wrap;
+  width: 250px;
 }
 </style>
