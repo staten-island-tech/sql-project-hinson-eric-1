@@ -22,7 +22,7 @@ async function update() {
 async function removeItem(x) {
   let temp = store.cart.indexOf(x);
   store.cart.splice(temp, 1);
-  carttotal.value = store.carttotal
+  carttotal.value = store.carttotal;
   carttotal.value = carttotal.value - x.price;
   store.carttotal = carttotal.value;
   updateCart();
@@ -41,13 +41,13 @@ updateCart();
 </script>
 <template>
   <h1 v-if="store.update2">Cart Total: {{ store.carttotal }}</h1>
-  <div class = "wrap">
+  <div class="wrap">
     <div v-for="book in books">
       <h2>{{ book.name }} -> ${{ book.price }}</h2>
       <img v-bind:src="book.pic" class="images" />
       <button @click="removeItem(book)">remove from cart</button>
-    </div> </div>
-
+    </div>
+  </div>
 </template>
 <style scoped>
 h1 {
@@ -60,8 +60,9 @@ h1 {
 
 .wrap {
   display: flex;
+  justify-content: center;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
-  justify-content: space-between;
-
 }
 </style>
