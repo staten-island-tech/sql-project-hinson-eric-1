@@ -63,7 +63,7 @@ getUsers();
 <template>
   <div id="yes">
     <h1>create an account!!!!</h1>
-    <h2>username</h2>
+    <h2>email</h2>
     <input type="text" id="username" />
     <h2>password</h2>
     <input type="text" id="password" />
