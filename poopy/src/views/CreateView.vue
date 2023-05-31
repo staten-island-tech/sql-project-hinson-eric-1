@@ -46,12 +46,11 @@ async function userInsert() {
         },
       });
       const { data2, error3 } = await supabase.auth.signInWithOtp({
-    email: `${user}`,
-    options: {
-      emailRedirectTo: 'http://localhost:3000/',
-    },
-  })
-
+        email: `${user}`,
+        options: {
+          emailRedirectTo: "http://localhost:3000/",
+        },
+      });
     }
   } else {
     warn.value = 3;
@@ -66,9 +65,9 @@ getUsers();
     <h2>email</h2>
     <input type="text" id="username" />
     <h2>password</h2>
-    <input type="text" id="password" />
+    <input type="text" id="password" class="pword" />
     <h2>confirm password</h2>
-    <input type="text" id="confirm_pword" />
+    <input type="text" id="confirm_pword" class="pword" />
     <button @click="userInsert">make</button>
     <nav v-if="warn == 0">
       <RouterLink to="/">back to login</RouterLink>
@@ -83,6 +82,10 @@ getUsers();
 </template>
 
 <style scoped>
+.pword {
+  -webkit-text-security: circle;
+}
+
 h1 {
   margin-bottom: 30px;
   font-size: 40px;

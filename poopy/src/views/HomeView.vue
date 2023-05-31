@@ -79,7 +79,7 @@ getUsers();
     <h2>email</h2>
     <input type="text" id="user" />
     <h2>password</h2>
-    <input type="text" id="pass" />
+    <input type="text" id="pass" class="pword" />
 
     <button @click="login2">login yay</button>
     <nav v-if="warn == 0">
@@ -113,5 +113,9 @@ input {
   justify-content: center;
   flex-direction: column;
   text-align: center;
+}
+
+.pword {
+  -webkit-text-security: circle;
 }
 </style>
