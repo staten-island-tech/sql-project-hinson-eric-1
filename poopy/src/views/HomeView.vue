@@ -26,10 +26,8 @@ async function login() {
   let temp = ref(-2);
   let found = true;
   let user = ref(document.getElementById("user").value);
-console.log(users.value)
   for (let i = 0; i < users.value.length; i++ && found == true) {
     if (users.value[i].username == user.value) {
-      console.log(users.value[i].username)
       temp.value = i;
       found = false;
     }
@@ -70,7 +68,6 @@ async function login2() {
       errorMsg.value = null;
     }, 5000);
     }
-    console.log(errorMsg.value)
   }
 
 
