@@ -1,9 +1,10 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView, useRouter } from "vue-router";
 import { useCounterStore } from "../stores/counter";
 
+let errorMsg = ref(null);
 let users = [];
 const books = ref([]);
 let warn = ref(0);
@@ -21,18 +22,20 @@ async function getUsers() {
 }
 
 async function login() {
+  getUsers()
   let temp = ref(-2);
   let found = true;
   let user = ref(document.getElementById("user").value);
-  let pass = ref(document.getElementById("pass").value);
+console.log(users.value)
   for (let i = 0; i < users.value.length; i++ && found == true) {
     if (users.value[i].username == user.value) {
+      console.log(users.value[i].username)
       temp.value = i;
       found = false;
     }
   }
+
   if (temp.value > -1) {
-    if (users.value[temp.value].password == pass.value && pass != "") {
       store.userarri = temp.value;
       store.carttotal = users.value[store.userarri].carttotal;
       store.currentid = users.value[store.userarri].id;
@@ -45,14 +48,36 @@ async function login() {
         }
       store.cart = tem;
       warn.value = 3;
-    } else {
-      warn.value = 1;
-    }
   } else {
-    warn.value = 2;
+    console.log("weird error")
   }
 }
+
+async function login2() {
+
+  let user = ref(document.getElementById("user").value);
+  let pass = ref(document.getElementById("pass").value);
+  try {
+      const {data, error} = await supabase.auth.signInWithPassword({
+    email: user.value,
+    password: pass.value
+  });
+  if (error) throw error;
+  login();
+  } catch (error) {
+    errorMsg.value = `Error: ${error.message}`
+    setTimeout(() => {
+      errorMsg.value = null;
+    }, 5000);
+    }
+    console.log(errorMsg.value)
+  }
+
+
+
 getUsers();
+getUsers();
+
 </script>
 
 <template>
@@ -63,7 +88,7 @@ getUsers();
     <h2>password</h2>
     <input type="text" id="pass" />
 
-    <button @click="login">login yay</button>
+    <button @click="login2">login yay</button>
     <nav v-if="warn == 0">
       <RouterLink to="/create">Create Account</RouterLink>
     </nav>
@@ -77,6 +102,7 @@ getUsers();
       >
     </nav>
     <p v-else></p>
+    <p>{{ errorMsg }}</p>
   </div>
 </template>
 

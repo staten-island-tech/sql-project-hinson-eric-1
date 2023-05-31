@@ -29,7 +29,6 @@ async function userInsert() {
     if (make) {
       const { error } = await supabase.from("users").insert({
         username: `${user}`,
-        password: `${pass}`,
         carttotal: 0,
         incart: [],
         owned: [],
@@ -46,6 +45,13 @@ async function userInsert() {
           },
         },
       });
+      const { data2, error3 } = await supabase.auth.signInWithOtp({
+    email: `${user}`,
+    options: {
+      emailRedirectTo: 'http://localhost:3000/',
+    },
+  })
+
     }
   } else {
     warn.value = 3;
