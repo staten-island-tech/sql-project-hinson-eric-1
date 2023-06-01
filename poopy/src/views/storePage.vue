@@ -14,6 +14,7 @@ let showcart = ref(true);
 async function getBooks() {
   const { data } = await supabase.from("books").select();
   books.value = data;
+  console.log(books.value)
 }
 async function getUsers() {
   const { data } = await supabase.from("users").select();
@@ -54,6 +55,7 @@ async function updateUsers(name, price, pic) {
 
 getUsers();
 getBooks();
+
 </script>
 
 <template>
@@ -61,20 +63,6 @@ getBooks();
     <button v-if="showcart" @click="showcart = !showcart">show cart</button>
       <button v-else @click="showcart = !showcart">close cart</button>
       <userCart></userCart>
-      <div class="wrap">
-        <div v-for="book in books" id="susdiv1" :key="book.id">
-          <book>
-            <template #title>{{ book.name }} by {{ book.author }}</template>
-            <template #img> <img v-bind:src="book.image" /></template>
-            <template #price>{{ book.price }} dollars</template>
-            <template #button>
-              <button @click="updateUsers(book.name, book.price, book.image)">
-                buy this item
-              </button>
-            </template>
-          </book>
-        </div>
-      </div>
 <div class="wrap">
   <div v-for="book in books" id="susdiv1" :key="book.id">
     <book>
