@@ -63,24 +63,28 @@ getBooks();
     <button v-if="showcart" @click="showcart = !showcart">show cart</button>
       <button v-else @click="showcart = !showcart">close cart</button>
       <userCart></userCart>
+    
 <div class="wrap">
-  <div v-for="book in books" id="susdiv1" :key="book.id">
-    <book>
-      <template #title>{{ book.name }} by {{ book.author }}</template>
-      <template #img> <img v-bind:src="book.image" /></template>
-      <template #price>{{ book.price }} dollars</template>
-      <template #button>
+  <div v-for="book in books" id="susdiv1" :key="book.id" class="comp">
+      <h3>{{ book.name }} by {{ book.author }}</h3>
+      <img v-bind:src="book.image" />
+      <h4>{{ book.price }} dollars</h4>
         <button @click="updateUsers(book.name, book.price, book.image)">
           buy this item
         </button>
-      </template>
-    </book>
   </div>
 </div>
 
 </template>
 
 <style scoped>
+.comp {
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  flex-wrap: wrap;
+  width: 250px;
+}
 .wrap {
   display: flex;
   flex-wrap: wrap;
