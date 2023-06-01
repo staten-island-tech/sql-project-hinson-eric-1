@@ -42,8 +42,14 @@ updateCart();
 </script>
 <template>
   <h1 v-if="store.update2">Cart Total: {{ store.carttotal }}</h1>
+  <div class="wrap" v-for="books in books" :key="books.id">
+    <h2>{{ book.name }} -> ${{ book.price }}</h2>
+    <img v-bind:src="book.pic" class="images" />
+    <button @click="removeItem(book)">remove from cart</button>
+  </div>
   <div class="wrap">
     <div v-for="book in books">
+      <p>wow</p>
       <h2>{{ book.name }} -> ${{ book.price }}</h2>
       <img v-bind:src="book.pic" class="images" />
       <button @click="removeItem(book)">remove from cart</button>
