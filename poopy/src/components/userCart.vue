@@ -50,14 +50,6 @@ updateCart();
       <button @click="removeItem(book)">remove from cart</button>
     </div>
   </div>
-  <div class="wrap">
-    <div v-for="book in books" :key="book.id">
-      <p>wow</p>
-      <h2>{{ book.name }} -> ${{ book.price }}</h2>
-      <img v-bind:src="book.pic" class="images" />
-      <button @click="removeItem(book)">remove from cart</button>
-    </div>
-  </div>
 
 </template>
 <style scoped>
