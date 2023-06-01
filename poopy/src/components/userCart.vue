@@ -1,3 +1,4 @@
+/* eslint-disable */
 <script setup>
 import { nextTick, ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
